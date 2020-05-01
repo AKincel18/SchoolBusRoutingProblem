@@ -25,9 +25,11 @@ public class Main {
 
         distance.distanceBetweenPupils();
         distance.distanceBetweenBusesAndPupils();
+        distance.distanceBetweenSchoolsAndPupils();
 
         distance.printDistances();
         distance.printBusDistance();
+        distance.printSchoolDistance();
 
     }
 }

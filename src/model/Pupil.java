@@ -8,8 +8,6 @@ public class Pupil {
 
     private int schoolId;
 
-    private int distanceToSchool;
-
 
     public Pupil(int x, int y, int schoolId) {
         this.coords = new Coords(x, y);
@@ -30,14 +28,6 @@ public class Pupil {
 
     public void setSchoolId(int schoolId) {
         this.schoolId = schoolId;
-    }
-
-    public int getDistanceToSchool() {
-        return distanceToSchool;
-    }
-
-    public void setDistanceToSchool(int distanceToSchool) {
-        this.distanceToSchool = distanceToSchool;
     }
 
     public static void printPupils(List<Pupil> pupils) {

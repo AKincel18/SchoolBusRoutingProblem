@@ -15,6 +15,8 @@ public class Distance {
 
     private List<List<Integer>> distanceBetweenBusesAndPupils = new ArrayList<>();
 
+    private List<List<Integer>> distanceBetweenSchoolsAndPupils = new ArrayList<>();
+
     private List<School> schools;
 
     private List<Pupil> pupils;
@@ -30,7 +32,6 @@ public class Distance {
     public void distanceBetweenPupils() {
 
         for (Pupil pupil : pupils) {
-            pupil.setDistanceToSchool(countDistanceToSchool(pupil));
             distanceBetweenPupils.add(countDistanceForOnePupilToOthers(pupil));
         }
     }
@@ -40,6 +41,29 @@ public class Distance {
         for (Bus bus : buses) {
             distanceBetweenBusesAndPupils.add(countDistanceBusPupils(bus));
         }
+    }
+
+    public void distanceBetweenSchoolsAndPupils() {
+
+        for (School school : schools) {
+            distanceBetweenSchoolsAndPupils.add(countDistanceSchoolPupils(school));
+        }
+    }
+
+    private List<Integer> countDistanceSchoolPupils(School school){
+
+        List<Integer> distance = new ArrayList<>();
+
+        for (Pupil pupil : pupils) {
+            if (pupil.getSchoolId() == school.getId()) {
+                distance.add(countDistanceBetweenCoords(pupil.getCoords(), school.getCoords()));
+            }
+            else {
+                distance.add(-1);
+            }
+        }
+
+        return distance;
     }
 
     private List<Integer> countDistanceBusPupils(Bus bus) {
@@ -76,11 +100,6 @@ public class Distance {
 
     }
 
-    private Integer countDistanceToSchool(Pupil pupil) {
-        return countDistanceBetweenCoords(pupil.getCoords(), findSchool(pupil).getCoords());
-    }
-
-
     private School findSchool(Pupil pupil) {
         for (School school : schools) {
             if (pupil.getSchoolId() == school.getId())
@@ -108,7 +127,7 @@ public class Distance {
 
         for (List<Integer> list : distanceBetweenPupils) {
             nrPupil++;
-            System.out.println("Pupil:" + nrPupil + "; distance to school = " + pupils.get(nrPupil - 1).getDistanceToSchool());
+            System.out.println("Pupil:" + nrPupil);
 
             for (Integer integer : list) {
                 System.out.print(integer + " ");
@@ -124,6 +143,21 @@ public class Distance {
         for (List<Integer> list : distanceBetweenBusesAndPupils) {
             nrBus++;
             System.out.println("Bus nr: " + nrBus);
+
+            for (Integer integer : list) {
+                System.out.print(integer + " ");
+            }
+            System.out.println();
+
+        }
+    }
+
+    public void printSchoolDistance() {
+        int nrSchool = 0;
+
+        for (List<Integer> list : distanceBetweenSchoolsAndPupils) {
+            nrSchool++;
+            System.out.println("School nr: " + nrSchool);
 
             for (Integer integer : list) {
                 System.out.print(integer + " ");
