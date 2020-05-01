@@ -27,23 +27,31 @@ public class Distance {
         this.schools = schools;
         this.pupils = pupils;
         this.buses = buses;
+        distanceAll();
     }
 
-    public void distanceBetweenPupils() {
+    private void distanceAll(){
+
+        distanceBetweenPupils();
+        distanceBetweenBusesAndPupils();
+        distanceBetweenSchoolsAndPupils();
+    }
+
+    private void distanceBetweenPupils() {
 
         for (Pupil pupil : pupils) {
             distanceBetweenPupils.add(countDistanceForOnePupilToOthers(pupil));
         }
     }
 
-    public void distanceBetweenBusesAndPupils() {
+    private void distanceBetweenBusesAndPupils() {
 
         for (Bus bus : buses) {
             distanceBetweenBusesAndPupils.add(countDistanceBusPupils(bus));
         }
     }
 
-    public void distanceBetweenSchoolsAndPupils() {
+    private void distanceBetweenSchoolsAndPupils() {
 
         for (School school : schools) {
             distanceBetweenSchoolsAndPupils.add(countDistanceSchoolPupils(school));
@@ -119,6 +127,10 @@ public class Distance {
 
     public List<List<Integer>> getDistanceBetweenBusesAndPupils() {
         return distanceBetweenBusesAndPupils;
+    }
+
+    public List<List<Integer>> getDistanceBetweenSchoolsAndPupils() {
+        return distanceBetweenSchoolsAndPupils;
     }
 
     public void printDistances() {

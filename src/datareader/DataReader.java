@@ -21,7 +21,11 @@ public class DataReader {
 
     private List<School> schools = new ArrayList<>();
 
-    public void readData() {
+    public DataReader() {
+        readData();
+    }
+
+    private void readData() {
 
         try {
 
