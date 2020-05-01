@@ -1,4 +1,4 @@
-package inputs;
+package model;
 
 import java.util.List;
 
@@ -7,6 +7,9 @@ public class School {
     private Coords coords;
 
     private int id;
+
+    public School() {
+    }
 
     public School(int x, int y, int id) {
         this.coords = new Coords(x, y);
@@ -39,7 +42,7 @@ public class School {
 
     @Override
     public String toString() {
-        return "inputs.School{" +
+        return "model.School{" +
                 "coords=" + coords +
                 ", id=" + id +
                 '}';

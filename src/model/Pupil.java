@@ -1,4 +1,4 @@
-package inputs;
+package model;
 
 import java.util.List;
 
@@ -7,6 +7,9 @@ public class Pupil {
     private Coords coords;
 
     private int schoolId;
+
+    private int distanceToSchool;
+
 
     public Pupil(int x, int y, int schoolId) {
         this.coords = new Coords(x, y);
@@ -29,6 +32,14 @@ public class Pupil {
         this.schoolId = schoolId;
     }
 
+    public int getDistanceToSchool() {
+        return distanceToSchool;
+    }
+
+    public void setDistanceToSchool(int distanceToSchool) {
+        this.distanceToSchool = distanceToSchool;
+    }
+
     public static void printPupils(List<Pupil> pupils) {
 
         for (Pupil pupil : pupils) {
@@ -39,7 +50,7 @@ public class Pupil {
 
     @Override
     public String toString() {
-        return "inputs.Pupil{" +
+        return "model.Pupil{" +
                 "coords=" + coords +
                 ", schoolId=" + schoolId +
                 '}';

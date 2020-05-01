@@ -2,7 +2,7 @@ package constants;
 
 public class Constants {
 
-    public static final String mainPath = "C:\\Users\\Adam\\Desktop\\Studia\\Magisterskie\\NTwI\\Inputs\\";
+    public static final String mainPath = "Inputs\\";
 
     public static final String nameBusFile = "Buses.txt";
 

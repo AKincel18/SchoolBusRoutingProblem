@@ -1,4 +1,4 @@
-package inputs;
+package model;
 
 import java.util.List;
 
@@ -44,7 +44,7 @@ public class Bus {
 
     @Override
     public String toString() {
-        return "inputs.Bus{" +
+        return "model.Bus{" +
                 "coords=" + coords +
                 ", capacity=" + capacity +
                 '}';

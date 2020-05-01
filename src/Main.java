@@ -1,7 +1,8 @@
 import datareader.DataReader;
-import inputs.Bus;
-import inputs.Pupil;
-import inputs.School;
+import distance.Distance;
+import model.Bus;
+import model.Pupil;
+import model.School;
 
 import java.util.List;
 
@@ -20,6 +21,13 @@ public class Main {
         Pupil.printPupils(pupils);
         School.printSchools(schools);
 
+        Distance distance = new Distance(schools, pupils, buses);
+
+        distance.distanceBetweenPupils();
+        distance.distanceBetweenBusesAndPupils();
+
+        distance.printDistances();
+        distance.printBusDistance();
 
     }
 }

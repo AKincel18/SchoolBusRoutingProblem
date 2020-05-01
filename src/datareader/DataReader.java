@@ -1,10 +1,8 @@
 package datareader;
 
-import constants.Constants;
-import inputs.Bus;
-import inputs.Pupil;
-import inputs.School;
-
+import model.Bus;
+import model.Pupil;
+import model.School;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;

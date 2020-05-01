@@ -1,4 +1,4 @@
-package inputs;
+package model;
 
 public class Coords {
 
@@ -29,7 +29,7 @@ public class Coords {
 
     @Override
     public String toString() {
-        return "inputs.Coords{" +
+        return "model.Coords{" +
                 "x=" + x +
                 ", y=" + y +
                 '}';
