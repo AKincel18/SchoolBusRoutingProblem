@@ -1,5 +1,6 @@
 package algorithm;
 
+import model.Bus;
 import model.Pupil;
 import model.School;
 
@@ -12,6 +13,8 @@ public class Route {
     private List<Pupil> busRoute;
 
     private School school;
+
+    private Bus bus;
 
     public Route() {
         this.distance = Integer.MAX_VALUE;
@@ -46,5 +49,13 @@ public class Route {
 
     public void setSchool(School school) {
         this.school = school;
+    }
+
+    public Bus getBus() {
+        return bus;
+    }
+
+    public void setBus(Bus bus) {
+        this.bus = bus;
     }
 }

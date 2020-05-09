@@ -6,10 +6,7 @@ import model.Bus;
 import model.Pupil;
 import model.School;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Algorithm {
 
@@ -24,6 +21,8 @@ public class Algorithm {
     private Map<School, List<SchoolDistance>> distanceBetweenSchoolsAndPupils;
 
     private List<Route> minimalRoute = new ArrayList<>();
+
+    private List<Route> globalRoute = new ArrayList<>();
 
 
 
@@ -61,66 +60,56 @@ public class Algorithm {
 
     private void busToSchool(){
 
-        //while (distanceBetweenBusesAndPupils.size() > 0) {
+        while (distanceBetweenBusesAndPupils.size() > 0) {
             for (Map.Entry<Bus, List<BusDistance>> entry: distanceBetweenBusesAndPupils.entrySet()) {
-                routeBusToSchool(entry.getValue());
+                routeBusToSchool(entry.getValue(), entry.getKey());
             }
-            //removeElements();
-        //}
+            removeElements();
+        }
 
     }
 
-    private void removeElements() {
+    private Route findMinimalRoute() {
         Route minRoute = new Route();
-        int pos = 0;
-        for (int i = 0; i < minimalRoute.size(); i++) {
-            if (minRoute.getDistance() > minimalRoute.get(i).getDistance()){
-                minRoute = minimalRoute.get(i);
-                pos = i;
+        for (Route route : minimalRoute) {
+            if (minRoute.getDistance() > route.getDistance()) {
+                minRoute = route;
             }
         }
+        return minRoute;
+    }
+    private void removeElements() {
+        Route minRoute = findMinimalRoute();
 
-        //removePupils(minRoute);
-        //removeBuses(minRoute);
-        //removeSchools(pos);
-        //removeRoute(minRoute);
+        removePupils(minRoute);
+        removeBuses(minRoute);
+        removeSchools(minRoute);
+        removeRoute(minRoute);
+    }
+
+    private void removeSchools(Route minRoute) {
+        distanceBetweenSchoolsAndPupils.remove(minRoute.getSchool());
+    }
+
+    private void removeBuses(Route minRoute) {
+        distanceBetweenBusesAndPupils.remove(minRoute.getBus());
+    }
+
+
+    private void removePupils(Route minRoute) {
+
+        for (Pupil pupil : minRoute.getBusRoute()) {
+            distanceBetweenPupil.remove(pupil);
+        }
     }
 
     private void removeRoute(Route minRoute) {
         minimalRoute.clear();
-        minimalRoute.add(minRoute);
+        globalRoute.add(minRoute);
     }
 
-    private void removeSchools(int pos) {
-        distanceBetweenSchoolsAndPupils.remove(pos);
-    }
 
-/*    private void removeBuses(Route route) {
-        distanceBetweenBusesAndPupils.remove(route.getSchoolId());
-        for (List<Integer> busDistance : distanceBetweenBusesAndPupils) {
-            for ()
-        }
-    }*/
-
-/*    private void removePupils(Route route) {
-
-        Iterator<List<Integer>> i = distanceBetweenPupil.iterator();
-        int pos = 0;
-        while (i.hasNext()) {
-            i.next();
-            for (int pupil : route.getBusRoute()) {
-                if (pos == pupil) {
-                    i.remove();
-                }
-            }
-            pos++;
-        }
-    }*/
-
-
-
-
-    private void routeBusToSchool(List<BusDistance> busDistance) {
+    private void routeBusToSchool(List<BusDistance> busDistance, Bus bus) {
 
         Route minRoute = new Route();
         for (Map.Entry<School, List<SchoolDistance>> map : distanceBetweenSchoolsAndPupils.entrySet()) {
@@ -129,6 +118,7 @@ public class Algorithm {
             Permutation permutation = new Permutation(listPupil, listPupil.size());
             List<List<Pupil>> permutations = permutation.getPermutation();
             Route route = getMinimalRouteForSchool(permutations, busDistance, map);
+            route.setBus(bus);
             minRoute = (minRoute.getDistance() > route.getDistance() ? route : minRoute);
         }
         minimalRoute.add(minRoute);
@@ -204,42 +194,13 @@ public class Algorithm {
         return 0;
     }
 
-/*    private List<List<PupilDistance>> getPupilKey(List<Pupil> pupils) {
-        List<List<PupilDistance>> distances = new ArrayList<>();
-
-        for (Map.Entry<Pupil, List<PupilDistance>> map : distanceBetweenPupil.entrySet()) {
-            for (Pupil pupil : pupils) {
-                if (map.getKey().equals(pupil)) {
-                    distances.add(map.getValue());
-                }
-            }
-        }
-        return distances;
-    }*/
-
-
-
-/*    private List<Pupil> getPupil(Pupil schoolDistance) {
-        List<Integer> listPupil = new ArrayList<>();
-        int pos = 0;
-        for ( Integer i : schoolDistance) {
-            if (i != -1) {
-                listPupil.add(pos);
-            }
-            pos++;
-        }
-        return listPupil;
-    }*/
-
     private void printMinimalRoute() {
-        int pos = 0;
 
-        for (Route route : minimalRoute) {
-            System.out.print("BUS NR = " + pos + " distance = " + route.getDistance() + " school nr = " + (route.getSchool()) + " pupil nr: ");
+        for (Route route : globalRoute) {
+            System.out.println("DISTANCE = " + route.getDistance() + " " + route.getBus() +  " " + (route.getSchool()));
             for (Pupil pupil : route.getBusRoute()) {
-                System.out.print(pupil + ", ");
+                System.out.println(pupil);
             }
-            pos ++;
             System.out.println();
         }
     }
