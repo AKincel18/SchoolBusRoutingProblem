@@ -1,31 +1,34 @@
 package algorithm;
 
+import model.Pupil;
+import model.School;
+
 import java.util.List;
 
 public class Route {
 
     private int distance;
 
-    private List<Integer> busRoute;
+    private List<Pupil> busRoute;
 
-    private int schoolId;
+    private School school;
 
     public Route() {
         this.distance = Integer.MAX_VALUE;
     }
 
-    public Route(int distance, List<Integer> busRoute, int schoolId) {
+    public Route(int distance, List<Pupil> busRoute, School school) {
         this.distance = distance;
         this.busRoute = busRoute;
-        this.schoolId = schoolId;
+        this.school = school;
 
     }
 
-    public List<Integer> getBusRoute() {
+    public List<Pupil> getBusRoute() {
         return busRoute;
     }
 
-    public void setRoute(List<Integer> busRoute) {
+    public void setBusRoute(List<Pupil> busRoute) {
         this.busRoute = busRoute;
     }
 
@@ -37,11 +40,11 @@ public class Route {
         this.distance = distance;
     }
 
-    public int getSchoolId() {
-        return schoolId;
+    public School getSchool() {
+        return school;
     }
 
-    public void setSchoolId(int schoolId) {
-        this.schoolId = schoolId;
+    public void setSchool(School school) {
+        this.school = school;
     }
 }

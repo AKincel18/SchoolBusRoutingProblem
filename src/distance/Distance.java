@@ -2,7 +2,7 @@ package distance;
 
 public class Distance {
 
-    protected Integer distance;
+    Integer distance;
 
     public Integer getDistance() {
         return distance;

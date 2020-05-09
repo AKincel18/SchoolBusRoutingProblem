@@ -1,21 +1,23 @@
 package algorithm;
 
+import model.Pupil;
+
 import java.util.*;
 
 public class Permutation {
 
-    private List<List<Integer>> permutation = new ArrayList<>();
+    private List<List<Pupil>> permutation = new ArrayList<>();
 
-    public Permutation(List<Integer> a, int size, int n) {
-        heapPermutation(a, size, n);
+    public Permutation(List<Pupil> a, int size) {
+        heapPermutation(a, size, size);
     }
 
-    public List<List<Integer>> getPermutation() {
+    public List<List<Pupil>> getPermutation() {
         return permutation;
     }
 
     //Generating permutation using Heap Algorithm
-    public void heapPermutation(List<Integer> a, int size, int n)
+    public void heapPermutation(List<Pupil> a, int size, int n)
     {
         // if size becomes 1 then prints the obtained
         // permutation
