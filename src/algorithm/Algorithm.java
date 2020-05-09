@@ -1,7 +1,7 @@
 package algorithm;
 
 import datareader.DataReader;
-import distance.Distance;
+import distance.CountDistance;
 import model.Bus;
 import model.Pupil;
 import model.School;
@@ -44,18 +44,18 @@ public class Algorithm {
     }
 
     private void countDistance () {
-        Distance distance = new Distance(schools, pupils, buses);
+        CountDistance distance = new CountDistance(schools, pupils, buses);
 
-        distanceBetweenPupil = distance.getDistanceBetweenPupils();
-        distanceBetweenBusesAndPupils = distance.getDistanceBetweenBusesAndPupils();
-        distanceBetweenSchoolsAndPupils = distance.getDistanceBetweenSchoolsAndPupils();
+        //distanceBetweenPupil = distance.getDistanceBetweenPupils();
+        //distanceBetweenBusesAndPupils = distance.getDistanceBetweenBusesAndPupils();
+        //distanceBetweenSchoolsAndPupils = distance.getDistanceBetweenSchoolsAndPupils();
 
         distance.printDistances();
         distance.printBusDistance();
         distance.printSchoolDistance();
 
-        busToSchool();
-        printMinimalRoute();
+        //busToSchool();
+        //printMinimalRoute();
     }
 
     private void busToSchool(){
@@ -64,12 +64,12 @@ public class Algorithm {
             for (List<Integer> busDistance : distanceBetweenBusesAndPupils) {
                 routeBusToSchool(busDistance);
             }
-            //removeElements();
+            removeElements();
         //}
 
     }
 
-/*    private void removeElements() {
+    private void removeElements() {
         Route minRoute = new Route();
         int pos = 0;
         for (int i = 0; i < minimalRoute.size(); i++) {
@@ -80,7 +80,7 @@ public class Algorithm {
         }
 
         removePupils(minRoute);
-        removeBuses(minRoute);
+        //removeBuses(minRoute);
         removeSchools(pos);
         removeRoute(minRoute);
     }
@@ -94,9 +94,12 @@ public class Algorithm {
         distanceBetweenSchoolsAndPupils.remove(pos);
     }
 
-    private void removeBuses(Route route) {
+/*    private void removeBuses(Route route) {
         distanceBetweenBusesAndPupils.remove(route.getSchoolId());
-    }
+        for (List<Integer> busDistance : distanceBetweenBusesAndPupils) {
+            for ()
+        }
+    }*/
 
     private void removePupils(Route route) {
 
@@ -111,7 +114,7 @@ public class Algorithm {
             }
             pos++;
         }
-    }*/
+    }
 
 
 
@@ -184,11 +187,12 @@ public class Algorithm {
         int pos = 0;
 
         for (Route route : minimalRoute) {
-            pos ++;
-            System.out.println("BUS NR = " + pos + "; distance = " + route.getDistance() + " school nr = " + (route.getSchoolId() + 1));
+            System.out.print("BUS NR = " + pos + " distance = " + route.getDistance() + " school nr = " + (route.getSchoolId()) + " pupil nr: ");
             for (Integer pupil : route.getBusRoute()) {
-                System.out.println(pupil + 1);
+                System.out.print(pupil + ", ");
             }
+            pos ++;
+            System.out.println();
         }
     }
 }
