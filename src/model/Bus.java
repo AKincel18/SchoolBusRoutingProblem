@@ -26,7 +26,7 @@ public class Bus {
         this.coords = coords;
     }
 
-    public int getCapacity() {
+    public Integer getCapacity() {
         return capacity;
     }
 
@@ -49,4 +49,5 @@ public class Bus {
                 ", capacity=" + capacity +
                 '}';
     }
+
 }

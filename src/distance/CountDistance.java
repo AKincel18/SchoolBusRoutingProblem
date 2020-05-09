@@ -4,6 +4,7 @@ import model.*;
 
 import java.util.*;
 import java.lang.Math;
+import java.util.stream.Collectors;
 
 public class CountDistance {
 
@@ -45,14 +46,28 @@ public class CountDistance {
         for (Bus bus : buses) {
             distanceBetweenBusesAndPupils.put(bus, countDistanceBusPupils(bus));
         }
+        //sortedBuses();
     }
+
+/*    private void sortedBuses() {
+        distanceBetweenBusesAndPupils = distanceBetweenBusesAndPupils.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey(Comparator.comparing(Bus::getCapacity)))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+    }*/
 
     private void distanceBetweenSchoolsAndPupils() {
 
         for (School school : schools) {
             distanceBetweenSchoolsAndPupils.put(school, countDistanceSchoolPupils(school));
         }
+        //sortedSchools();
     }
+
+/*    private void sortedSchools() {
+        distanceBetweenSchoolsAndPupils = distanceBetweenSchoolsAndPupils.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.comparing(List::size)))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+    }*/
 
     private List<SchoolDistance> countDistanceSchoolPupils(School school){
 

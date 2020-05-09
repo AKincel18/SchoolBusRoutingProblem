@@ -8,6 +8,8 @@ public class Permutation {
 
     private List<List<Pupil>> permutation = new ArrayList<>();
 
+    //private Integer sum =0;
+
     public Permutation(List<Pupil> a, int size) {
         heapPermutation(a, size, size);
     }
@@ -23,6 +25,7 @@ public class Permutation {
         // permutation
         if (size == 1) {
             permutation.add(new ArrayList<>(a));
+            //System.out.println(sum); sum++;
         }
 
 

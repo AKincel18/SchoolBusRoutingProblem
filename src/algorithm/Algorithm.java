@@ -24,6 +24,8 @@ public class Algorithm {
 
     private List<Route> globalRoute = new ArrayList<>();
 
+    private Map<Bus, List<School>> analysisMap;
+
 
 
     public void init () {
@@ -54,15 +56,19 @@ public class Algorithm {
         distance.printBusDistance();
         distance.printSchoolDistance();
 
+        DependencyAnalysis dependencyAnalysis = new DependencyAnalysis();
+        analysisMap = dependencyAnalysis.analysis(distanceBetweenBusesAndPupils, distanceBetweenSchoolsAndPupils);
         busToSchool();
         printMinimalRoute();
     }
 
+
+
     private void busToSchool(){
 
         while (distanceBetweenBusesAndPupils.size() > 0) {
-            for (Map.Entry<Bus, List<BusDistance>> entry: distanceBetweenBusesAndPupils.entrySet()) {
-                routeBusToSchool(entry.getValue(), entry.getKey());
+            for (Map.Entry<Bus, List<BusDistance>> map: distanceBetweenBusesAndPupils.entrySet()) {
+                routeBusToSchool(map);
             }
             removeElements();
         }
@@ -85,6 +91,7 @@ public class Algorithm {
         removeBuses(minRoute);
         removeSchools(minRoute);
         removeRoute(minRoute);
+
     }
 
     private void removeSchools(Route minRoute) {
@@ -109,20 +116,23 @@ public class Algorithm {
     }
 
 
-    private void routeBusToSchool(List<BusDistance> busDistance, Bus bus) {
+    private void routeBusToSchool(Map.Entry<Bus, List<BusDistance>> busMap) {
 
         Route minRoute = new Route();
         for (Map.Entry<School, List<SchoolDistance>> map : distanceBetweenSchoolsAndPupils.entrySet()) {
             //b -> u ... u -> s
-            List<Pupil> listPupil = getPupilFromTheSameSchool(map.getValue());
-            Permutation permutation = new Permutation(listPupil, listPupil.size());
-            List<List<Pupil>> permutations = permutation.getPermutation();
-            Route route = getMinimalRouteForSchool(permutations, busDistance, map);
-            route.setBus(bus);
-            minRoute = (minRoute.getDistance() > route.getDistance() ? route : minRoute);
+            if (analysisMap.get(busMap.getKey()).contains(map.getKey())) {
+                List<Pupil> listPupil = getPupilFromTheSameSchool(map.getValue());
+                Permutation permutation = new Permutation(listPupil, listPupil.size());
+                List<List<Pupil>> permutations = permutation.getPermutation();
+                Route route = getMinimalRouteForSchool(permutations, busMap.getValue(), map);
+                route.setBus(busMap.getKey());
+                minRoute = (minRoute.getDistance() > route.getDistance() ? route : minRoute);
+            }
         }
         minimalRoute.add(minRoute);
     }
+
 
     private List<Pupil> getPupilFromTheSameSchool(List<SchoolDistance> value) {
         List<Pupil> pupils = new ArrayList<>();

@@ -58,4 +58,14 @@ public class Route {
     public void setBus(Bus bus) {
         this.bus = bus;
     }
+
+    @Override
+    public String toString() {
+        return "Route{" +
+                "distance=" + distance +
+                ", school=" + school +
+                ", bus=" + bus +
+                ", busRoute=" + busRoute +
+                '}';
+    }
 }
