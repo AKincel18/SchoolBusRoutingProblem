@@ -147,6 +147,8 @@ public class Algorithm {
             route.setBus(busMap.getKey());
             minRoute = (minRoute.getDistance() > route.getDistance() ? route : minRoute);
         }
+
+        schoolToRemove = minRoute.getSchool();
         minimalRoute.add(minRoute);
 /*        Route minRoute = new Route();
         for (Map.Entry<School, List<SchoolDistance>> map : distanceBetweenSchoolsAndPupils.entrySet()) {
@@ -198,7 +200,6 @@ public class Algorithm {
                 minRoute = route;
             }
         }
-        schoolToRemove = schoolDistance.getKey();
         return new Route(minDistance, minRoute, schoolDistance.getKey());
 
     }
