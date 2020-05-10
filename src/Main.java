@@ -1,12 +1,12 @@
-import algorithm.Algorithm;
+import algorithm.MainAlgorithm;
 
 public class Main {
 
     public static void main(String[] args) {
 
         long start = System.nanoTime();
-        Algorithm algorithm = new Algorithm();
-        algorithm.init();
+        MainAlgorithm mainAlgorithm = new MainAlgorithm();
+        mainAlgorithm.bruteForceAlgorithm();
         long elapsedTime = System.nanoTime() - start;
         System.out.println("TIME: " + elapsedTime);
 

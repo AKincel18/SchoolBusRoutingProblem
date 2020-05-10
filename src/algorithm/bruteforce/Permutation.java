@@ -1,4 +1,4 @@
-package algorithm;
+package algorithm.bruteforce;
 
 import model.Pupil;
 
