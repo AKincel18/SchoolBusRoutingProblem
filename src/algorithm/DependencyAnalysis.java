@@ -11,11 +11,11 @@ import java.util.stream.Collectors;
 /**
  * dependency analysis between buses capacity and number of pupils belonging to school
  */
-public class DependencyAnalysis {
+class DependencyAnalysis {
 
-    private static Map<Bus, List<School>> analysisMap = new HashMap<>();
+    private Map<Bus, List<School>> analysisMap = new HashMap<>();
 
-    static Map<Bus, List<School>> analysis(Map<Bus, List<BusDistance>> distanceBetweenBusesAndPupils,
+    Map<Bus, List<School>> analysis(Map<Bus, List<BusDistance>> distanceBetweenBusesAndPupils,
                           Map<School, List<SchoolDistance>> distanceBetweenSchoolsAndPupils) {
         for (Map.Entry<Bus, List<BusDistance>> mapBus: distanceBetweenBusesAndPupils.entrySet()) {
 
@@ -32,7 +32,7 @@ public class DependencyAnalysis {
         return analysisMap;
     }
 
-    private static void sortedAnalysisBySizeOfSchools() {
+    private void sortedAnalysisBySizeOfSchools() {
         analysisMap = analysisMap.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.comparing(List::size)))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));

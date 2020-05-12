@@ -13,33 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class BruteForceAlgorithm {
-
-    private School schoolToRemove;
+public class BruteForceAlgorithm extends MainAlgorithm{
 
     private List<Route> minimalRoute = new ArrayList<>();
 
-    private MainAlgorithm mainAlgorithm;
-
-    public BruteForceAlgorithm(MainAlgorithm mainAlgorithm) {
-        this.mainAlgorithm = mainAlgorithm;
-    }
-
-    public List<Route> startAlgorithm(){
-        for (Map.Entry<Bus, List<School>> map : mainAlgorithm.getAnalysisMap().entrySet()) {
-            routeBusToSchool(map);
-            removeVisitedSchool(schoolToRemove);
-        }
-        return minimalRoute;
-    }
-
-    private void removeVisitedSchool(School schoolToRemove) {
-        for ( Map.Entry<Bus, List<School>> map : mainAlgorithm.getAnalysisMap().entrySet()) {
-            map.getValue().removeIf(schoolToRemove::equals);
-        }
-    }
-
-    private void routeBusToSchool(Map.Entry<Bus, List<School>> busMap) {
+    @Override
+    public void routeBusToSchool(Map.Entry<Bus, List<School>> busMap) {
         Route minRoute = new Route();
         for (School school : busMap.getValue()) {
             List<Pupil> listPupil = getPupilFromTheSameSchool(school);
@@ -49,32 +28,11 @@ public class BruteForceAlgorithm {
             minRoute = (minRoute.getDistance() > route.getDistance() ? route : minRoute);
         }
 
-        schoolToRemove = minRoute.getSchool();
+        removeVisitedSchool(minRoute.getSchool());
         minimalRoute.add(minRoute);
     }
 
 
-    private List<SchoolDistance> getSchoolDistance(School school) {
-        List<SchoolDistance> schoolDistancesList = null;
-        for (Map.Entry<School, List<SchoolDistance>> map : mainAlgorithm.getDistanceBetweenSchoolsAndPupils().entrySet()) {
-            if (map.getKey().equals(school)) {
-                schoolDistancesList = map.getValue();
-            }
-        }
-        return schoolDistancesList;
-    }
-
-    private List<Pupil> getPupilFromTheSameSchool(School school) {
-
-        List<SchoolDistance> schoolDistancesList = getSchoolDistance(school);
-        List<Pupil> pupils = new ArrayList<>();
-        for (SchoolDistance schoolDistance : schoolDistancesList) {
-            pupils.add(schoolDistance.getPupil());
-        }
-        return pupils;
-    }
-
-    @SuppressWarnings("ConstantConditions")
     private Route getMinimalRouteForSchool(List<List<Pupil>> routes, Bus bus,School school) {
         int minDistance = Integer.MAX_VALUE;
         List<Pupil> minRoute = null;
@@ -92,23 +50,6 @@ public class BruteForceAlgorithm {
 
     }
 
-    private List<BusDistance> getBusDistance(Bus bus) {
-        for (Map.Entry<Bus, List<BusDistance>> map : mainAlgorithm.getDistanceBetweenBusesAndPupils().entrySet()) {
-            if (map.getKey().equals(bus)) {
-                return map.getValue();
-            }
-        }
-        return null;
-    }
-
-    private Map.Entry<School, List<SchoolDistance>> getSchoolDistanceMap(School school) {
-        for (Map.Entry<School, List<SchoolDistance>> map : mainAlgorithm.getDistanceBetweenSchoolsAndPupils().entrySet()) {
-            if (map.getKey().equals(school)) {
-                return map;
-            }
-        }
-        return null;
-    }
 
     private int countDistanceInRoute(List<Pupil> route, List<BusDistance> busDistance, Map.Entry<School, List<SchoolDistance>> schoolDistance) {
         int distanceBetweenPupils = countDistanceBetweenPupils(route);
@@ -145,7 +86,7 @@ public class BruteForceAlgorithm {
     }
 
     private int countDistanceBetweenTwoPupils(Pupil pupil, Pupil pupil2) {
-        for (Map.Entry<Pupil, List<PupilDistance>> map : mainAlgorithm.getDistanceBetweenPupil().entrySet()) {
+        for (Map.Entry<Pupil, List<PupilDistance>> map : getDistanceBetweenPupil().entrySet()) {
             if (map.getKey().equals(pupil)) {
                 for (PupilDistance pupilDistance : map.getValue()) {
                     if (pupilDistance.getPupil().equals(pupil2)) {
@@ -157,4 +98,9 @@ public class BruteForceAlgorithm {
         return 0;
     }
 
+
+    @Override
+    protected List<Route> getMinimalRoute() {
+        return minimalRoute;
+    }
 }
