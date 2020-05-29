@@ -40,9 +40,6 @@ public class Pupil {
 
     @Override
     public String toString() {
-        return "model.Pupil{" +
-                "coords=" + coords +
-                ", schoolId=" + schoolId +
-                '}';
+        return "Pupil" + coords + ", schoolId=" + schoolId;
     }
 }

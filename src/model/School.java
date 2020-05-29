@@ -42,9 +42,6 @@ public class School {
 
     @Override
     public String toString() {
-        return "model.School{" +
-                "coords=" + coords +
-                ", id=" + id +
-                '}';
+        return "School" + coords + ", id= " + id;
     }
 }

@@ -44,10 +44,7 @@ public class Bus {
 
     @Override
     public String toString() {
-        return "model.Bus{" +
-                "coords=" + coords +
-                ", capacity=" + capacity +
-                '}';
+        return "Bus"+ coords + ", capacity = " + capacity;
     }
 
 }

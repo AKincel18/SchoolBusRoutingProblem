@@ -1,10 +1,14 @@
 package algorithm;
 
+import algorithm.bruteforce.BruteForceAlgorithm;
+import algorithm.nearestneighbour.NearestNeighbourAlgorithm;
 import datareader.DataReader;
 import distance.*;
 import model.Bus;
 import model.Pupil;
 import model.School;
+import others.Constants;
+import others.WrongDataException;
 
 import java.util.*;
 
@@ -23,6 +27,10 @@ public abstract class MainAlgorithm extends DependencyAnalysis {
     private Map<Bus, List<School>> analysisMap;
 
     private List<Route> minimalRoute = new ArrayList<>();
+
+    private double algorithmTime;
+
+    private boolean isDataCorrect = true;
 
     protected abstract void routeBusToSchool(Map.Entry<Bus, List<School>> map);
 
@@ -61,19 +69,55 @@ public abstract class MainAlgorithm extends DependencyAnalysis {
         distance.printSchoolDistance();*/
 
         analysisMap = analysis(distanceBetweenBusesAndPupils, distanceBetweenSchoolsAndPupils);
+
     }
+
+    private void checkDataCorrectness() throws WrongDataException {
+        if (buses.size() != schools.size()) {
+            throw new WrongDataException(Constants.exception1);
+        } else if (isEmptyBus()) {
+            throw new WrongDataException(Constants.exception2);
+        }
+    }
+
+    private boolean isEmptyBus(){
+        for (Map.Entry<Bus, List<School>> map : analysisMap.entrySet()) {
+            if (map.getValue().size() == 0)
+                return true;
+        }
+        return false;
+    }
+
 
     public void startAlgorithm() {
-        for (Map.Entry<Bus, List<School>> map : analysisMap.entrySet()) {
-            routeBusToSchool(map);
+        try {
+            checkDataCorrectness();
+            printAlgorithmName();
+
+            long start = System.nanoTime();
+            for (Map.Entry<Bus, List<School>> map : analysisMap.entrySet()) {
+                routeBusToSchool(map);
+            }
+            long elapsedTime = System.nanoTime() - start;
+            algorithmTime = (double)elapsedTime / 1_000_000_000.0;
+
+            minimalRoute = getMinimalRoute();
+            printMinimalRoute();
+        } catch (WrongDataException e) {
+            isDataCorrect = false;
+            System.out.println(e.getMessage());
         }
-        minimalRoute = getMinimalRoute();
-        printMinimalRoute();
+
     }
 
-    protected void removeVisitedSchool(School schoolToRemove) {
+    protected void removeVisitedSchool(School schoolToRemove) throws WrongDataException {
         for ( Map.Entry<Bus, List<School>> map : analysisMap.entrySet()) {
-            map.getValue().removeIf(schoolToRemove::equals);
+            try {
+                map.getValue().removeIf(schoolToRemove::equals);
+            } catch (NullPointerException e) {
+                isDataCorrect = false;
+                throw new WrongDataException(Constants.exception2);
+            }
         }
     }
 
@@ -118,15 +162,16 @@ public abstract class MainAlgorithm extends DependencyAnalysis {
     }
 
     private void printMinimalRoute() {
-
-        for (Route route : minimalRoute) {
-            System.out.println("DISTANCE = " + route.getDistance());
-            System.out.println(route.getBus());
-            for (Pupil pupil : route.getBusRoute()) {
-                System.out.println(pupil);
+        if (isDataCorrect) {
+            for (Route route : minimalRoute) {
+                System.out.println(route.getBus());
+                for (Pupil pupil : route.getBusRoute()) {
+                    System.out.println(pupil);
+                }
+                System.out.println(route.getSchool());
+                System.out.println(Constants.distance + route.getDistance());
+                System.out.println();
             }
-            System.out.println(route.getSchool());
-            System.out.println();
         }
     }
 
@@ -139,10 +184,39 @@ public abstract class MainAlgorithm extends DependencyAnalysis {
     }
 
     public void printSumOfDistance() {
-        System.out.println("Sum of the distance = " + countSumOfDistance());
+        if (isDataCorrect) {
+            if (this instanceof BruteForceAlgorithm) {
+                System.out.println(Constants.sumOfTheDistance);
+                System.out.println(Constants.bruteForceAlgorithm + countSumOfDistance());
+            } else if (this instanceof NearestNeighbourAlgorithm) {
+                System.out.println(Constants.nearestNeighbourAlgorithm + countSumOfDistance());
+            }
+        }
     }
 
     protected Map<Pupil, List<PupilDistance>> getDistanceBetweenPupil() {
         return distanceBetweenPupil;
+    }
+
+    public void printAlgorithmTime() {
+        if (isDataCorrect) {
+            if (this instanceof BruteForceAlgorithm) {
+                System.out.println();
+                System.out.println(Constants.time);
+                System.out.println(Constants.bruteForceAlgorithm + algorithmTime);
+            } else if (this instanceof NearestNeighbourAlgorithm) {
+                System.out.println(Constants.nearestNeighbourAlgorithm + algorithmTime);
+            }
+        }
+    }
+
+    private void printAlgorithmName() {
+
+        if (this instanceof BruteForceAlgorithm) {
+            System.out.println(Constants.bruteForceAlgorithm);
+        } else if (this instanceof NearestNeighbourAlgorithm) {
+            System.out.println(Constants.nearestNeighbourAlgorithm);
+        }
+        System.out.println();
     }
 }

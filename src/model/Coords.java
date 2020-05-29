@@ -29,9 +29,6 @@ public class Coords {
 
     @Override
     public String toString() {
-        return "model.Coords{" +
-                "x=" + x +
-                ", y=" + y +
-                '}';
+        return "(" + x + "," + y + ")";
     }
 }

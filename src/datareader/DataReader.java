@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static constants.Constants.*;
+import static others.Constants.*;
 
 public class DataReader {
 
@@ -59,7 +59,7 @@ public class DataReader {
             }
 
 
-        } catch (IOException e) {
+        } catch (IOException | NumberFormatException e ) {
             e.printStackTrace();
         }
 

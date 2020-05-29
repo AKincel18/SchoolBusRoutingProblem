@@ -8,6 +8,7 @@ import distance.SchoolDistance;
 import model.Bus;
 import model.Pupil;
 import model.School;
+import others.WrongDataException;
 
 import java.util.*;
 
@@ -24,7 +25,12 @@ public class NearestNeighbourAlgorithm extends MainAlgorithm{
             route.setBus(map.getKey());
             minRoute = (minRoute.getDistance() > route.getDistance() ? route : minRoute);
         }
-        removeVisitedSchool(minRoute.getSchool());
+
+        try {
+            removeVisitedSchool(minRoute.getSchool());
+        } catch (WrongDataException e) {
+            System.out.println(e.getMessage());
+        }
         minimalRoute.add(minRoute);
     }
 
