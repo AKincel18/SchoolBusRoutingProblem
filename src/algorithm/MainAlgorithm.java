@@ -163,7 +163,9 @@ public abstract class MainAlgorithm extends DependencyAnalysis {
 
     private void printMinimalRoute() {
         if (isDataCorrect) {
+            int i = 1;
             for (Route route : minimalRoute) {
+                System.out.println(Constants.pathNumber + i);
                 System.out.println(route.getBus());
                 for (Pupil pupil : route.getBusRoute()) {
                     System.out.println(pupil);
@@ -171,6 +173,7 @@ public abstract class MainAlgorithm extends DependencyAnalysis {
                 System.out.println(route.getSchool());
                 System.out.println(Constants.distance + route.getDistance());
                 System.out.println();
+                i++;
             }
         }
     }
@@ -186,6 +189,10 @@ public abstract class MainAlgorithm extends DependencyAnalysis {
     public void printSumOfDistance() {
         if (isDataCorrect) {
             if (this instanceof BruteForceAlgorithm) {
+                System.out.println(Constants.extraSpaces);
+                System.out.println(Constants.summary);
+                System.out.println(Constants.extraSpaces);
+                System.out.println();
                 System.out.println(Constants.sumOfTheDistance);
                 System.out.println(Constants.bruteForceAlgorithm + countSumOfDistance());
             } else if (this instanceof NearestNeighbourAlgorithm) {
@@ -212,11 +219,14 @@ public abstract class MainAlgorithm extends DependencyAnalysis {
 
     private void printAlgorithmName() {
 
+        System.out.println();
+        System.out.println(Constants.extraSpaces);
         if (this instanceof BruteForceAlgorithm) {
             System.out.println(Constants.bruteForceAlgorithm);
         } else if (this instanceof NearestNeighbourAlgorithm) {
             System.out.println(Constants.nearestNeighbourAlgorithm);
         }
+        System.out.println(Constants.extraSpaces);
         System.out.println();
     }
 }

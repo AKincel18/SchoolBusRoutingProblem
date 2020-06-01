@@ -20,7 +20,13 @@ public class Constants {
 
     public static final String distance = "DISTANCE = ";
 
-    public static final String time = "Time";
+    public static final String time = "Time [in seconds]";
 
     public static final String sumOfTheDistance = "Sum of the distance";
+
+    public static final String pathNumber = "Path number: ";
+
+    public static final String extraSpaces = "###################################################";
+
+    public static final String summary = "SUMMARY";
 }
