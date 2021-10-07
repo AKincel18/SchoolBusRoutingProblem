@@ -15,11 +15,11 @@ import static others.Constants.*;
 public class DataReader {
 
 
-    private List<Bus> buses = new ArrayList<>();
+    private final List<Bus> buses = new ArrayList<>();
 
-    private List<Pupil> pupils = new ArrayList<>();
+    private final List<Pupil> pupils = new ArrayList<>();
 
-    private List<School> schools = new ArrayList<>();
+    private final List<School> schools = new ArrayList<>();
 
     public DataReader() {
         readData();
@@ -39,9 +39,9 @@ public class DataReader {
                 for (String line : strings) {
                     String[] split = line.split(" ");
 
-                    int x = Integer.valueOf(split[0]);
-                    int y = Integer.valueOf(split[1]);
-                    int extraVar = Integer.valueOf(split[2]); //different variable depend on file
+                    int x = Integer.parseInt(split[0]);
+                    int y = Integer.parseInt(split[1]);
+                    int extraVar = Integer.parseInt(split[2]); //different variable depend on file
 
                     switch (file) {
                         case nameBusFile:

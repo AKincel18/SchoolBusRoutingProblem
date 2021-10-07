@@ -6,9 +6,7 @@ import java.util.*;
 
 public class Permutation {
 
-    private List<List<Pupil>> permutation = new ArrayList<>();
-
-    //private Integer sum =0;
+    private final List<List<Pupil>> permutation = new ArrayList<>();
 
     public Permutation(List<Pupil> a, int size) {
         heapPermutation(a, size, size);

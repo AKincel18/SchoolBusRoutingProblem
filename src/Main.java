@@ -4,8 +4,8 @@ import algorithm.nearestneighbour.NearestNeighbourAlgorithm;
 
 public class Main {
 
-    private static MainAlgorithm bruteForceAlgorithm = new BruteForceAlgorithm();
-    private static MainAlgorithm nearestNeighbourAlgorithm = new NearestNeighbourAlgorithm();
+    private static final MainAlgorithm bruteForceAlgorithm = new BruteForceAlgorithm();
+    private static final MainAlgorithm nearestNeighbourAlgorithm = new NearestNeighbourAlgorithm();
 
     public static void main(String[] args) {
 

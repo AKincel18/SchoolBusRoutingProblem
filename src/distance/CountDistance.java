@@ -1,24 +1,28 @@
 package distance;
 
-import model.*;
+import model.Bus;
+import model.Coords;
+import model.Pupil;
+import model.School;
 
-import java.util.*;
-import java.lang.Math;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CountDistance {
 
-    private Map<Pupil, List<PupilDistance>> distanceBetweenPupils = new HashMap<>();
+    private final Map<Pupil, List<PupilDistance>> distanceBetweenPupils = new HashMap<>();
 
-    private Map<Bus, List<BusDistance>> distanceBetweenBusesAndPupils = new HashMap<>();
+    private final Map<Bus, List<BusDistance>> distanceBetweenBusesAndPupils = new HashMap<>();
 
-    private Map<School, List<SchoolDistance>> distanceBetweenSchoolsAndPupils = new HashMap<>();
+    private final Map<School, List<SchoolDistance>> distanceBetweenSchoolsAndPupils = new HashMap<>();
 
-    private List<School> schools;
+    private final List<School> schools;
 
-    private List<Pupil> pupils;
+    private final List<Pupil> pupils;
 
-    private List<Bus> buses;
+    private final List<Bus> buses;
 
     public CountDistance(List<School> schools, List<Pupil> pupils, List<Bus> buses) {
         this.schools = schools;

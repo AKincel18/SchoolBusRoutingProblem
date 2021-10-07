@@ -1,7 +1,6 @@
 package distance;
 
 import model.Pupil;
-import model.School;
 
 public class SchoolDistance extends Distance {
 
