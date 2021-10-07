@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class BruteForceAlgorithm extends MainAlgorithm{
 
-    private List<Route> minimalRoute = new ArrayList<>();
+    private final List<Route> minimalRoute = new ArrayList<>();
 
     @Override
     public void routeBusToSchool(Map.Entry<Bus, List<School>> busMap) {

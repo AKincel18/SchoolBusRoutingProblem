@@ -2,7 +2,7 @@ package others;
 
 public class Constants {
 
-    public static final String mainPath = "Inputs\\";
+    public static final String mainPath = "inputs\\";
 
     public static final String nameBusFile = "Buses.txt";
 
